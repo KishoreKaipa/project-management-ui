@@ -1,0 +1,55 @@
+
+
+<div class="container">
+    <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()" >
+        <div class="row">
+        <label class="labelspace" for="projectName"> Project Name</label>
+        <input type="text" class="form-control col-md-3" disabled="true" #projectname="ngModel" [(ngModel)]="taskModel.projectDescription" name="projectName" required/>
+        
+        <button type="button"class="col-md-3 btn btn-primary" (click)="openProject()">Search</button>
+        
+        </div>
+        <div class="row">
+            <label class="labelspace" for="taskName"> Task Name</label>
+            <input type="text" class="form-control col-md-3" #taskname="ngModel" [(ngModel)]="taskModel.taskDescription" name="taskName" required/>
+            <span class="help-bpx" *ngIf="taskname.errors?.required && taskForm.submitted">Please enter task Name </span>
+            </div>
+        <div class="row">
+        <input type="checkbox" [(ngModel)]="taskModel.IsParentTask" (change)="dateset()" name="parentTask"/>
+        <label for="parentTask"> Parent Task</label>
+      </div>
+    <div class="row">
+        <label class="labelspace" for="priority"> Priority</label>
+        <input type="range" class="form-control col-md-3"  min="0" max="30" [disabled]="isDisabled" name="priority" [(ngModel)]="taskModel.priority"/>
+        
+        
+ </div>
+        <div class="row">
+        <label for="parent Task"> Parent Task</label>
+        <input type="text" class="form-control col-md-3" disabled="true" #eId="ngModel" name="parentTaskName" [(ngModel)]="taskModel.parentTaskDescription"/>
+       
+        <button type="button"class="col-md-3 btn btn-primary" [disabled]="isDisabled" (click)="openTask()">Search</button>
+        
+ </div>
+ <div class="row">
+    <label for="start"> Start Date</label>
+    <input type="date" class="form-control col-md-3" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="taskModel.startDate"/>
+    <label for="end"> End Date</label>
+    <input type="date" class="form-control col-md-3" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="taskModel.endDate"/>
+    <span class="help-bpx" *ngIf="isErrormsg">End Date should be greater than start Date </span>
+ </div>
+
+<div class="row">
+<label for="user"> User</label>
+<input type="text" class="form-control col-md-3" disabled="true"  name="userNameText" [(ngModel)]="taskModel.userName"/>
+
+<button type="button"class="col-md-3 btn btn-primary" [disabled]="isDisabled" (click)="openUser()">Search</button>
+
+</div>
+        <div class="row">
+    <input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
+   
+        <button type="reset"class="col-md-2 btn btn-primary" >Reset</button>
+    </div></form>
+</div>
+
