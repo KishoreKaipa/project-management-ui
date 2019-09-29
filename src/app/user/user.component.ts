@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
 
   addUser()
   {
-    console.log('Add user');
+    
    
     const userId=this.apiService.addUser(this.userModel);
     this.userModel.userId=userId;
@@ -32,8 +32,7 @@ export class UserComponent implements OnInit {
     if(this.buttonValue==='Edit')
     {
       this.userList=this.userList.filter(obj=> obj.userId !== this.userModel.userId);
- //this.userList.splice(this.userModel.userId);
- console.log('edit',this.userList);
+
     }
    
      this.userList.push(this.userModel);
@@ -43,13 +42,12 @@ export class UserComponent implements OnInit {
 
   reset()
   {
-    console.log('coming to reset');
-   // this.userModel={};
+   
     this.buttonValue='Add';
   }
   sortByFName()
   {
-    console.log('sorting... FName');
+    
     this.userList.sort((leftside,rightside) => {
             if(leftside.firstName < rightside.firstName) return -1;
             if(leftside.firstName > rightside.firstName) return 1;
@@ -58,20 +56,21 @@ export class UserComponent implements OnInit {
   }
   edit(user)
   {
-    console.log('coming to edit',user.userId);
+    
     this.buttonValue='Edit'
     this.userModel=user;
   }
 
   delete(user)
   {
-    console.log('coming to delete');
-    this.userModel=user;
+  
+    this.apiService.deleteUser(user);
+    this.userList=this.userList.filter(obj=> obj.userId !== user.userId);
   }
 
   sortByLName()
   {
-    console.log('sorting... LName');
+   
     this.userList.sort((leftside,rightside) => {
             if(leftside.lastName < rightside.lastName) return -1;
             if(leftside.lastName > rightside.lastName) return 1;
@@ -81,7 +80,7 @@ export class UserComponent implements OnInit {
 
   sortByEmployeeId()
   {
-    console.log('sorting... Id');
+    
     this.userList.sort((leftside,rightside) => {
             if(leftside.employeeId < rightside.employeeId) return -1;
             if(leftside.employeeId > rightside.employeeId) return 1;

@@ -8,11 +8,11 @@ import {Task} from './task/task';
 export class FilterPipe implements PipeTransform{
     transform(items:any[],searchText:string):any[]
     {
-        console.log('coming to filter');
+       
         if(!items) return [];
         if(!searchText) return items;
         searchText=searchText.toLowerCase();
-        console.log('coming to filter2');
+       
         if(items[0] instanceof User)
         {
             return items.filter(it => 

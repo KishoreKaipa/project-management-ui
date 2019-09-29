@@ -18,13 +18,15 @@ export class ViewTaskComponent implements OnInit {
 
   ngOnInit() {
     this.taskList=this.apiService.getTaskList();
+    const parenttask=this.apiService.getParentTaskList();
+    this.taskList.concat(parenttask);
   }
   taskModel=new Task()
   taskList: Task[]=[];
 
   sortByEndDate()
   {
-    console.log('sorting... LName');
+   
     this.taskList.sort((leftside,rightside) => {
             if(leftside.endDate < rightside.endDate) return -1;
             if(leftside.endDate > rightside.endDate) return 1;
@@ -33,7 +35,7 @@ export class ViewTaskComponent implements OnInit {
   }
   sortBystartDate()
   {
-    console.log('sorting... LName');
+   
     this.taskList.sort((leftside,rightside) => {
             if(leftside.startDate < rightside.startDate) return -1;
             if(leftside.startDate > rightside.startDate) return 1;
@@ -43,7 +45,7 @@ export class ViewTaskComponent implements OnInit {
 
   sortByPriority()
   {
-    console.log('sorting... Id');
+   
     this.taskList.sort((leftside,rightside) => {
             if(leftside.priority < rightside.priority) return -1;
             if(leftside.priority > rightside.priority) return 1;
@@ -52,16 +54,16 @@ export class ViewTaskComponent implements OnInit {
   }
   sortByCompleted()
   {
-    console.log('sorting... Id');
+    
     this.taskList.sort((leftside,rightside) => {
-            if(leftside.completed < rightside.completed) return -1;
-            if(leftside.completed > rightside.completed) return 1;
+            if(leftside.taskStatus < rightside.taskStatus) return -1;
+            if(leftside.taskStatus > rightside.taskStatus) return 1;
             return 0;
     });
   }
   openProject()
 {
-  console.log('comgint to user');
+ 
    const modalRef=this.modalService.open(ProjectModal);
   modalRef.componentInstance.name='Wrold';
   modalRef.result.then((result) => {
@@ -69,6 +71,7 @@ export class ViewTaskComponent implements OnInit {
     {
       this.taskModel.projectDescription=result.projectDescription;
       this.taskModel.projectId=result.projectId;
+      this.taskList=this.taskList.filter(obj=> obj.projectDescription === this.taskModel.projectDescription);
     }
   }); 
 }
@@ -76,8 +79,25 @@ export class ViewTaskComponent implements OnInit {
 deleteTask(task)
 {
   task.completed=true;
+  task.taskStatus="InActive";
+ 
+  this.apiService.addTask(task);
+  this.taskList=this.taskList.filter(obj=> obj.taskId !== task.taskId);
   this.taskList.push(task);
 
+}
+
+checkDisabled(task)
+{
+  console.log(task);
+  if(task.taskStatus === 'ACTIVE')
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 editTask(task)
 {

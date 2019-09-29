@@ -47,7 +47,7 @@ export class TaskModal {
     }
   selectTask(task)
   {
-    console.log(task.employeeId);
+   
     this.activeModal.close(task);
   }
  

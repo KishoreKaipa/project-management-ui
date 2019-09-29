@@ -46,7 +46,7 @@ export class ProjectModal {
 
   selectProject(project)
   {
-    console.log(project.projectName);
+    
     this.activeModal.close(project);
   }
   

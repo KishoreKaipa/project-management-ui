@@ -8,8 +8,8 @@ export class Project
     }
 
     projectDescription:string;
-    startDate:Date;
-    endDate:Date;
+    startDate:any;
+    endDate:any;
     priority:number=0;
     userDetails:User;
     managerName:string;
@@ -19,4 +19,5 @@ export class Project
     taskNumber:number;
     completed:boolean;
     taskList:Task[];
+    taskcompleted:number;
 }

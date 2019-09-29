@@ -25,4 +25,5 @@ export class Task
     taskId:number;
     userId:number;
     parentId:number;
+    taskStatus:String;
 }

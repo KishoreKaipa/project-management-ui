@@ -34,7 +34,7 @@ export class TaskComponent implements OnInit {
   theCheckbox=true;
   dateset()
   {
-    console.log('coming to date');
+    
     if(this.taskModel.IsParentTask)
     {
       this.isDisabled=true;
@@ -62,9 +62,9 @@ dateChange()
 
 openUser()
 {
-  console.log('comgint to user');
+ 
    const modalRef=this.modalService.open(UserModal);
-  modalRef.componentInstance.name='Wrold';
+ 
   modalRef.result.then((result) => {
     if(result)
     {
@@ -76,7 +76,7 @@ openUser()
 
 openTask()
 {
-  console.log('comgint to user');
+ 
    const modalRef=this.modalService.open(TaskModal);
  
   modalRef.result.then((result) => {
@@ -89,9 +89,9 @@ openTask()
 }
 openProject()
 {
-  console.log('comgint to user');
+ 
    const modalRef=this.modalService.open(ProjectModal);
-  modalRef.componentInstance.name='Wrold';
+ 
   modalRef.result.then((result) => {
     if(result)
     {
@@ -103,9 +103,7 @@ openProject()
 
 addTask()
 {
-  //this.projects.push(this.projectModel);
-  //this.projectModel={};
-  console.log('Add Task');
+ 
    
     this.apiService.addTask(this.taskModel);
     
@@ -118,7 +116,7 @@ addTask()
 reset()
 {
   
- // this.projectModel={};
+ 
   this.isDisabled=true;
   this.theCheckbox=false;
 }

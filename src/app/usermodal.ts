@@ -49,7 +49,7 @@ export class UserModal {
 
   selectUser(user)
   {
-    console.log(user.employeeId);
+  
     this.activeModal.close(user);
   }
 }

@@ -4,16 +4,19 @@
     <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()" >
         <div class="row">
         <label class="labelspace" for="projectName"> Project Name</label>
-        <input type="text" class="form-control col-md-3" disabled="true" #projectname="ngModel" [(ngModel)]="taskModel.projectDescription" name="projectName" required/>
+        <input type="text" class="form-control col-md-2" disabled="true" #projectname="ngModel" [(ngModel)]="taskModel.projectDescription" name="projectName" required/>&nbsp;
         
-        <button type="button"class="col-md-3 btn btn-primary" (click)="openProject()">Search</button>
+        <button type="button"class="col-sm-1 btn btn-primary" (click)="openProject()">Search</button>
         
         </div>
+        <br>
+       
         <div class="row">
             <label class="labelspace" for="taskName"> Task Name</label>
-            <input type="text" class="form-control col-md-3" #taskname="ngModel" [(ngModel)]="taskModel.taskDescription" name="taskName" required/>
+            <input type="text" class="form-control col-md-2" #taskname="ngModel" [(ngModel)]="taskModel.taskDescription" name="taskName" required/>
             <span class="help-bpx" *ngIf="taskname.errors?.required && taskForm.submitted">Please enter task Name </span>
             </div>
+            <br>
         <div class="row">
         <input type="checkbox" [(ngModel)]="taskModel.IsParentTask" (change)="dateset()" name="parentTask"/>
         <label for="parentTask"> Parent Task</label>
@@ -25,27 +28,29 @@
         
  </div>
         <div class="row">
-        <label for="parent Task"> Parent Task</label>
-        <input type="text" class="form-control col-md-3" disabled="true" #eId="ngModel" name="parentTaskName" [(ngModel)]="taskModel.parentTaskDescription"/>
+        <label class="labelspace" for="parent Task"> Parent Task</label>
+        <input type="text" class="form-control col-md-2" disabled="true" #eId="ngModel" name="parentTaskName" [(ngModel)]="taskModel.parentTaskDescription"/>&nbsp;
        
-        <button type="button"class="col-md-3 btn btn-primary" [disabled]="isDisabled" (click)="openTask()">Search</button>
+        <button type="button"class="col-sm-1 btn btn-primary" [disabled]="isDisabled" (click)="openTask()">Search</button>
         
  </div>
+ <br>
  <div class="row">
-    <label for="start"> Start Date</label>
-    <input type="date" class="form-control col-md-3" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="taskModel.startDate"/>
-    <label for="end"> End Date</label>
-    <input type="date" class="form-control col-md-3" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="taskModel.endDate"/>
+    <label class="labelspace" for="start"> Start Date</label>
+    <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="taskModel.startDate"/>
+    <label class="labelspace" for="end"> End Date</label>
+    <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="taskModel.endDate"/>
     <span class="help-bpx" *ngIf="isErrormsg">End Date should be greater than start Date </span>
  </div>
-
+<br>
 <div class="row">
-<label for="user"> User</label>
-<input type="text" class="form-control col-md-3" disabled="true"  name="userNameText" [(ngModel)]="taskModel.userName"/>
+<label class="labelspace" for="user"> User Name </label>
+<input type="text" class="form-control col-md-2" disabled="true"  name="userNameText" [(ngModel)]="taskModel.userName"/>&nbsp;
 
-<button type="button"class="col-md-3 btn btn-primary" [disabled]="isDisabled" (click)="openUser()">Search</button>
+<button type="button"class="col-sm-1 btn btn-primary" [disabled]="isDisabled" (click)="openUser()">Search</button>
 
 </div>
+<br>
         <div class="row">
     <input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
    

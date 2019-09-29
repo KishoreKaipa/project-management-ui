@@ -26,11 +26,11 @@
 <div class="container" *ngIf="userList.length > 0">
     <h2 class="justify-content-center"> User List </h2>
     <div class="container">
-        <input [(ngModel)]="searchText" placeholder="search text" name="searchText" />
-        <label class="col-sm-2"> Sort </label>
-        <button type="submit"class="col-md-2 btn btn-primary" (click)="sortByFName()">FirstName</button> &nbsp;
-        <button type="submit"class="col-md-2 btn btn-primary" (click)="sortByLName()">LastName</button>&nbsp;
-        <button type="submit"class="col-md-2 btn btn-primary" (click)="sortByEmployeeId()">EmployeeId</button>&nbsp;
+        <input [(ngModel)]="searchText" placeholder="search text" name="searchText" />&nbsp;
+        <label class="labelspace"> Sort </label>
+        <button type="submit"class="btn btn-primary" (click)="sortByFName()">FirstName</button> &nbsp;
+        <button type="submit"class="btn btn-primary" (click)="sortByLName()">LastName</button>&nbsp;
+        <button type="submit"class="btn btn-primary" (click)="sortByEmployeeId()">EmployeeId</button>&nbsp;
     </div>
     <table class="table table-stripped">
         <thead>
