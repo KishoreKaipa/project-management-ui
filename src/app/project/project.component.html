@@ -1,74 +1,80 @@
-
-
 <div class="container">
-        <form class="form-group" name="userform" #projectForm="ngForm" (ngSubmit)="projectForm.form.valid && addProject()" >
-            <div class="row">
-            <label class="labelspace" for="projectName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" class="form-control col-md-2" #name="ngModel" [(ngModel)]="projectModel.projectDescription" name="projectName" required/>
-            <span class="help-bpx" *ngIf="name.errors?.required && projectForm.submitted">Please enter Project Name </span>
-            </div>
-            <br>
-            <div class="row">
-            <input type="checkbox" [(ngModel)]="theCheckbox" (change)="dateset()" name="setdates"/>
+    <form class="form-group" name="userform" #projectForm="ngForm" (ngSubmit)="projectForm.form.valid && addProject()">
+        <div class="row">
+            <label class="labelspace" for="projectName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project
+                Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control col-md-2" #name="ngModel"
+                [(ngModel)]="projectModel.projectDescription" name="projectName" required />
+            <span class="help-bpx" *ngIf="name?.errors?.required && projectForm.submitted">Please enter Project Name
+            </span>
+        </div>
+        <br>
+        <div class="row">
+            <input type="checkbox" [(ngModel)]="theCheckbox" (change)="dateSet()" name="setdates" />
             <label for="lastName">&nbsp;&nbsp;&nbsp;set Start and End Date</label>&nbsp;&nbsp;
-            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="projectModel.startDate"/>&nbsp;&nbsp;
-            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="projectModel.endDate"/>
+            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel"
+                name="startDate" (change)="dateChange()" [(ngModel)]="projectModel.startDate" />&nbsp;&nbsp;
+            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate"
+                (change)="dateChange()" [(ngModel)]="projectModel.endDate" />
             <span class="help-bpx" *ngIf="isErrormsg">Please enter End Date later than start Date </span>
         </div>
         <br>
-            <div class="row">
-            <label class="labelspace" for="employeeId">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Manager</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" class="form-control col-md-2" #eId="ngModel" name="employeeId" disabled="true" [(ngModel)]="projectModel.managerName"/>&nbsp;
-           
-            <button type="button"class="col-sm-1 btn btn-primary" (click)="openUser()">Search</button>
-     </div>
-     <div class="row">
-            <label for="priority">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Priority</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="range" class="form-control col-md-2"  min="0" max="30" name="priority" [(ngModel)]="projectModel.priority"/>
-            
-            
-     </div>
-            <div class="row">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
-    
-                &nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"class="col-md-2 btn btn-primary" >Reset</button>
+        <div class="row">
+            <label class="labelspace" for="employeeId">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project
+                Manager</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control col-md-2" #eId="ngModel" name="employeeId" disabled="true"
+                [(ngModel)]="projectModel.managerName" />&nbsp;
+
+            <button type="button" class="col-sm-1 btn btn-primary" (click)="openUser()">Search</button>
         </div>
-        </form>
-    </div>
-    <div class="container" *ngIf="projects.length > 0">
-        <h2 class="justify-content-center"> Project List </h2>
-        <div class="container">
-            <input [(ngModel)]="searchText" placeholder="search text" name="searchText" />&nbsp;
-            <label class="labelspace"> Sort </label> &nbsp;
-            <button type="button"class=" btn btn-primary" (click)="sortByEndDate()">Start Date</button> &nbsp;
-            <button type="button"class=" btn btn-primary" (click)="sortBystartDate()">End Date</button>&nbsp;
-            <button type="button"class=" btn btn-primary" (click)="sortByPriority()">Priority</button>&nbsp;
-            <button type="button"class="btn btn-primary" (click)="sortByCompleted()">Completed</button>&nbsp;
+        <div class="row">
+            <label
+                for="priority">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Priority</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="range" class="form-control col-md-2" min="0" max="30" name="priority"
+                [(ngModel)]="projectModel.priority" />
+
+
         </div>
-        <table class="table table-stripped">
-            <thead>
-                <tr>
-                    <th>Project Name </th>
-                    <th>Start Date </th>
-                    <th>End Date </th>
-                    <th>No of Tasks </th>
-                    <th>Completed </th>
-                    <th>Priority </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let project of projects | filter:searchText">
-                    <td>{{project.projectDescription}} </td>
-                    <td>{{project.startDate}} </td>
-                    <td>{{project.endDate}}</td>
-                    <td>{{project.taskNumber}}</td>
-                    <td>{{project.taskcompleted}}</td>
-                    <td>{{project.priority}}</td>
-                    <td><button type="submit" class="btn btn-primary" (click)="edit(project)" >Edit </button></td>
-                    <td><button type="submit" class="btn btn-primary" (click)="delete(project)" >Delete </button></td>
-                </tr>
-    
-            </tbody>
-        </table>
+        <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="col-md-2 btn btn-primary"
+                [value]="buttonValue" /> &nbsp;
+
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="reset" class="col-md-2 btn btn-primary">Reset</button>
+        </div>
+    </form>
+</div>
+<div class="container" *ngIf="projects.length > 0">
+    <div class="container">
+        <input [(ngModel)]="searchText" placeholder="type project details" name="searchText" />&nbsp;
+        <label class="labelspace"> Sort </label> &nbsp;
+        <button type="button" class=" btn btn-primary" (click)="sortByEndDate()">Start Date</button> &nbsp;
+        <button type="button" class=" btn btn-primary" (click)="sortBystartDate()">End Date</button>&nbsp;
+        <button type="button" class=" btn btn-primary" (click)="sortByPriority()">Priority</button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="sortByCompleted()">Completed</button>&nbsp;
     </div>
-    
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>Project Name </th>
+                <th>Start Date </th>
+                <th>End Date </th>
+                <th>No of Tasks </th>
+                <th>Completed </th>
+                <th>Priority </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let project of projects | filter:searchText">
+                <td>{{project.projectDescription}} </td>
+                <td>{{project.startDate}} </td>
+                <td>{{project.endDate}}</td>
+                <td>{{project.taskNumber}}</td>
+                <td>{{project.taskcompleted}}</td>
+                <td>{{project.priority}}</td>
+                <td><button type="submit" class="btn btn-primary" (click)="edit(project)">Edit </button></td>
+                <td><button type="submit" class="btn btn-primary" (click)="delete(project)">Delete </button></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
