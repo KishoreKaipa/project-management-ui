@@ -5,6 +5,7 @@ import { Task} from './task/task';
 import { User} from './user/user';
 import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 import { environment } from '../environments/environment';
+import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +24,18 @@ export class Apiservice {
 
   getUserList()
   {
-    console.log('coming get usrlist');
+    
     let userList:User[]=[];
     this.httpClient.get<User[]>(this.userURL).subscribe(data=>{
       data.forEach(item=>{
-        console.log(data);
+   
      
         const userModel = new User();
         userModel.firstName=item.firstName;
         userModel.lastName=item.lastName;
         userModel.employeeId=item.employeeId;
         userModel.userId=item.userId;
-        console.log('coming specific object',userModel);
+        
        userList.push(userModel);
       });
    });
@@ -44,7 +45,7 @@ export class Apiservice {
 
   addUser(user)
   {
-   console.log ('coming to add');
+   
    let userId;
    let header= new HttpHeaders();
    header.set('Content-Type','application/json');
@@ -57,9 +58,12 @@ export class Apiservice {
    {
      headers:header
    };
+   if(user.userId ===null || user.userId ===undefined )
+   {
+
    this.httpClient.post(this.userURL,user,options).subscribe((data:any)=>{
      userId=data.userId;
-   console.log('post data',data);
+  
    
  },
   error => {
@@ -67,14 +71,29 @@ export class Apiservice {
   }
  );
  return userId;
+}
+else
+{
+
+  this.httpClient.put(this.userURL,user,options).subscribe((data:any)=>{
+    userId=data.userId;
+
+  
+},
+ error => {
+   console.log('error',error);
+ }
+);
+return userId;
+}
   }
   getProjectList()
   {
     let projectList:Project[]=[];
-    console.log('coming get usrlist');
+    
     this.httpClient.get<Project[]>(this.projectURL).subscribe(data=>{
       data.forEach(item=>{
-        console.log(data);
+      
      
         const projectModel = new Project();
         projectModel.projectDescription=item.projectDescription;
@@ -84,9 +103,13 @@ export class Apiservice {
         if(item.taskList.length > 0)
         {
           projectModel.taskNumber=item.taskList.length;
+          const completetaskList=item.taskList.filter(obj=> obj.taskStatus !== 'ACTIVE');
+          projectModel.taskcompleted=completetaskList.length;
         }
+        
         else{
           projectModel.taskNumber=0;
+          projectModel.taskcompleted=0;
         }
         projectModel.projectId=item.projectId;
         console.log('coming specific object',projectModel);
@@ -99,7 +122,6 @@ export class Apiservice {
 
   addProject(project)
   {
-   console.log ('coming to add');
    let projectId;
    let header= new HttpHeaders();
    header.set('Content-Type','application/json');
@@ -112,12 +134,14 @@ export class Apiservice {
    {
      headers:header
    };
+   if(project.projectId ===null || project.projectId  ===undefined )
+   {
    const user = new User();
    user.userId=project.userId;
    project.userDetails=user;
    this.httpClient.post(this.projectURL,project,options).subscribe((data:any)=>{
     projectId=data.projectId;
-   console.log('post data',data);
+   
    
  },
   error => {
@@ -126,11 +150,106 @@ export class Apiservice {
  );
 
  return projectId;
+}
+else{
+  const user = new User();
+  user.userId=project.userId;
+  project.userDetails=user;
+  this.httpClient.put(this.projectURL,project,options).subscribe((data:any)=>{
+   projectId=data.projectId;
+ 
+  
+},
+ error => {
+   console.log('error',error);
+ }
+);
+
+return projectId;
+}
+
+  }
+
+
+  deleteProject(project)
+  {
+   
+   
+   let header= new HttpHeaders();
+   header.set('Content-Type','application/json');
+   
+
+   let options=
+   {
+     headers:header
+   };
+   
+   this.httpClient.delete(this.projectURL+'/'+project.projectId,options).subscribe((data:any)=>{
+    
+   
+   
+ },
+  error => {
+    console.log('error',error);
+  }
+ );
+
+ 
+  }
+
+  deleteUser(user)
+  {
+   
+   
+   let header= new HttpHeaders();
+   header.set('Content-Type','application/json');
+   
+
+   let options=
+   {
+     headers:header
+   };
+   
+   this.httpClient.delete(this.userURL+'/'+user.userId,options).subscribe((data:any)=>{
+    
+  
+   
+ },
+  error => {
+    console.log('error',error);
+  }
+ );
+}
+
+ deleteTask(task)
+  {
+   
+   
+   let header= new HttpHeaders();
+   header.set('Content-Type','application/json');
+   
+
+   let options=
+   {
+     headers:header
+   };
+   
+   this.httpClient.delete(this.taskURL+'/'+task.taskId,options).subscribe((data:any)=>{
+    
+   
+   
+ },
+  error => {
+    console.log('error',error);
+  }
+ );
+
+ 
   }
   getTaskList()
   {
     let taskList:Task[]=[];
-    console.log('coming get usrlist');
+  
     this.httpClient.get<Task[]>(this.taskURL).subscribe((data:any)=>{
       data.forEach(item=>{
         console.log(data);
@@ -155,12 +274,10 @@ export class Apiservice {
         taskModel.projectDescription=item.projectDetails.projectDescription;
         taskModel.projectId=item.projectDetails.projectId;
         }
-        if(item.taskStatus==='ACTIVE')
-        {
-        taskModel.completed=false;
-        }
+        
+        taskModel.taskStatus=item.taskStatus;
         taskModel.taskId=item.taskId;
-        console.log('coming specific object',taskModel);
+       
        taskList.push(taskModel);
       });
    });
@@ -171,7 +288,7 @@ export class Apiservice {
   getParentTaskList()
   {
     let taskList:Task[]=[];
-    console.log('coming get usrlist');
+ 
     this.httpClient.get<Task[]>(this.parenttaskURL).subscribe(data=>{
       data.forEach(item=>{
         console.log(data);
@@ -179,6 +296,12 @@ export class Apiservice {
         const taskModel = new Task();
         taskModel.parentTaskDescription=item.parentTaskDescription;
         taskModel.parentTaskId=item.parentId;
+        taskModel.IsParentTask=true;
+        if(item.projectDetails !=null)
+        {
+        taskModel.projectDescription=item.projectDetails.projectDescription;
+        taskModel.projectId=item.projectDetails.projectId;
+        }
        taskList.push(taskModel);
       });
    });
@@ -188,7 +311,7 @@ export class Apiservice {
 
   addTask(task)
   {
-   console.log ('coming to add');
+  
    let taskId;
    let header= new HttpHeaders();
    header.set('Content-Type','application/json');
@@ -212,10 +335,10 @@ export class Apiservice {
          "projectId":task.projectId
        }
      }
-     console.log(parentTask);
+     
     this.httpClient.post(this.parenttaskURL,parentTask,options).subscribe((data:any)=>{
       taskId=data.parenttaskId;
-    console.log('post data',data);
+   
     
   },
    error => {
@@ -234,16 +357,30 @@ export class Apiservice {
    const parentTask=new Task();
    parentTask.parentId=task.parentTaskId;
    task.parentTaskDetails=parentTask;
-   console.log('task',task);
+   if(project.projectId ===null || project.projectId  ===undefined )
+   {
    this.httpClient.post(this.taskURL,task,options).subscribe((data:any)=>{
      taskId=data.taskId;
-   console.log('post data',data);
+  
    
  },
   error => {
     console.log('error',error);
   }
  );
+}
+else
+{
+  this.httpClient.put(this.taskURL,task,options).subscribe((data:any)=>{
+    taskId=data.taskId;
+  
+  
+},
+ error => {
+   console.log('error',error);
+ }
+);
+}
 }
  return taskId;
   }
@@ -252,7 +389,7 @@ export class Apiservice {
 
   setTaskData(task)
   {
-    console.log(task);
+   
     this.task=task;
   }
   getTaskData()
@@ -261,3 +398,4 @@ export class Apiservice {
   }
  
 }
+

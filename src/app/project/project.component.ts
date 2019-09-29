@@ -26,7 +26,7 @@ export class ProjectComponent implements OnInit {
   theCheckbox=false;
   dateset()
   {
-    console.log('coming to date');
+   
     if(this.theCheckbox)
     {
       this.isDisabled=false;
@@ -45,7 +45,7 @@ dateChange()
 {
   if(this.projectModel.startDate < this.projectModel.endDate)
   {
-    console.log('validation goood');
+    this.isErrormsg=false;
   }
   else{
     this.isErrormsg=true;
@@ -54,9 +54,9 @@ dateChange()
 
 openUser()
 {
-  console.log('comgint to user');
+  
    const modalRef=this.modalService.open(UserModal);
-  modalRef.componentInstance.name='Wrold';
+
   modalRef.result.then((result) => {
     if(result)
     {
@@ -68,14 +68,12 @@ openUser()
 
 addProject()
 {
-  //this.projects.push(this.projectModel);
-  //this.projectModel={};
   const projectId=this.apiService.addProject(this.projectModel);
     this.projectModel.projectId=projectId;
-    console.log('projects before',this.projects);
+   
     this.projects=this.projects.filter(obj=> obj.projectId !== this.projectModel.projectId);
     {
-      console.log('projects after',this.projects);
+     
      this.projects.push(this.projectModel);
     }
      this.buttonValue='Add';
@@ -84,7 +82,12 @@ addProject()
   this.theCheckbox=false;
   this.isErrormsg=false;
 }
-
+edit(project)
+  {
+   
+    this.buttonValue='Edit'
+    this.projectModel=project;
+  }
 reset()
 {
   
@@ -95,7 +98,7 @@ reset()
 
 sortByEndDate()
   {
-    console.log('sorting... LName');
+    
     this.projects.sort((leftside,rightside) => {
             if(leftside.endDate < rightside.endDate) return -1;
             if(leftside.endDate > rightside.endDate) return 1;
@@ -104,7 +107,6 @@ sortByEndDate()
   }
   sortBystartDate()
   {
-    console.log('sorting... LName');
     this.projects.sort((leftside,rightside) => {
             if(leftside.startDate < rightside.startDate) return -1;
             if(leftside.startDate > rightside.startDate) return 1;
@@ -114,7 +116,7 @@ sortByEndDate()
 
   sortByPriority()
   {
-    console.log('sorting... Id');
+    
     this.projects.sort((leftside,rightside) => {
             if(leftside.priority < rightside.priority) return -1;
             if(leftside.priority > rightside.priority) return 1;
@@ -123,11 +125,16 @@ sortByEndDate()
   }
   sortByCompleted()
   {
-    console.log('sorting... Id');
+    
     this.projects.sort((leftside,rightside) => {
-            if(leftside.completed < rightside.completed) return -1;
-            if(leftside.completed > rightside.completed) return 1;
+            if(leftside.taskcompleted < rightside.taskcompleted) return -1;
+            if(leftside.taskcompleted > rightside.taskcompleted) return 1;
             return 0;
     });
+  }
+  delete(project)
+  {
+    this.apiService.deleteProject(project);
+    this.projects=this.projects.filter(obj=> obj.projectId !== project.projectId);
   }
 }
