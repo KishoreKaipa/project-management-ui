@@ -304,15 +304,36 @@ addTask(task)
   // if task is not a parentTask then add or edit task based on taskId param
   else
   {
-   const  user= new User();
-   user.userId=task.userId;
-   const project=new Project();
-   project.projectId=task.projectId;
-   task.userDetails=user;
-   task.projectDetails=project;
-   const parentTask=new Task();
-   parentTask.parentId=task.parentTaskId;
-   task.parentTaskDetails=parentTask;
+    // Make sure to not pass userDetails if there is no user assignment to task
+   if (task.userId != 0) {
+		const  user= new User();
+		user.userId=task.userId;
+		task.userDetails=user;
+   } 
+   else {
+	    task.userDetails=null;
+   }
+   
+   // Make sure to not pass projectDetails if there is no project assignment to task
+   if (task.projectId != 0) {
+	    const project=new Project();
+		project.projectId=task.projectId;   
+		task.projectDetails=project;
+   } 
+   else {
+		task.projectDetails=null;
+   }
+   
+   // Make sure to not pass parentTaskDetails if there is no parentTask assignment to task
+   if (task.parentTaskId != 0) {
+	    const parentTask=new Task();
+		parentTask.parentId=task.parentTaskId;
+		task.parentTaskDetails=parentTask;   
+   } 
+   else {
+		task.parentTaskDetails=null;
+   }
+   
    // if taskId is null then create task
    if(task.taskId ===null || task.taskId ===undefined )
    {
