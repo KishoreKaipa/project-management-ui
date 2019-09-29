@@ -3,35 +3,35 @@
 <div class="container">
         <form class="form-group" name="userform" #projectForm="ngForm" (ngSubmit)="projectForm.form.valid && addProject()" >
             <div class="row">
-            <label class="labelspace" for="projectName"> Project Name</label>
+            <label class="labelspace" for="projectName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="text" class="form-control col-md-2" #name="ngModel" [(ngModel)]="projectModel.projectDescription" name="projectName" required/>
             <span class="help-bpx" *ngIf="name.errors?.required && projectForm.submitted">Please enter Project Name </span>
             </div>
             <br>
             <div class="row">
             <input type="checkbox" [(ngModel)]="theCheckbox" (change)="dateset()" name="setdates"/>
-            <label for="lastName"> set Start and End Date</label>
-            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="projectModel.startDate"/>
+            <label for="lastName">&nbsp;&nbsp;&nbsp;set Start and End Date</label>&nbsp;&nbsp;
+            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="projectModel.startDate"/>&nbsp;&nbsp;
             <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="projectModel.endDate"/>
             <span class="help-bpx" *ngIf="isErrormsg">Please enter End Date later than start Date </span>
         </div>
         <br>
             <div class="row">
-            <label class="labelspace" for="employeeId"> ProJect Manager</label>
+            <label class="labelspace" for="employeeId">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Manager</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="text" class="form-control col-md-2" #eId="ngModel" name="employeeId" disabled="true" [(ngModel)]="projectModel.managerName"/>&nbsp;
            
-            <button type="button"class="col-sm-1 btn btn-primary" (click)="openUser()">search</button>
+            <button type="button"class="col-sm-1 btn btn-primary" (click)="openUser()">Search</button>
      </div>
      <div class="row">
-            <label for="priority"> Priority</label>
+            <label for="priority">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Priority</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="range" class="form-control col-md-2"  min="0" max="30" name="priority" [(ngModel)]="projectModel.priority"/>
             
             
      </div>
             <div class="row">
-                <input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
     
-                <button type="reset"class="col-md-2 btn btn-primary" >Reset</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"class="col-md-2 btn btn-primary" >Reset</button>
         </div>
         </form>
     </div>

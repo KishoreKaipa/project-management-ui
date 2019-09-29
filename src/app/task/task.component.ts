@@ -53,7 +53,7 @@ dateChange()
 {
   if(this.taskModel.startDate < this.taskModel.endDate)
   {
-    console.log('validation goood');
+    console.log('validation looks goood');
   }
   else{
     this.isErrormsg=true;

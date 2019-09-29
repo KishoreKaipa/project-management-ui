@@ -115,15 +115,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "projectmanager:serve"
+            "devServerTarget": "project-management-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "projectmanager:serve:production"
+              "devServerTarget": "project-management-ui:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "projectmanager"
+  "defaultProject": "project-management-ui"
 }
