@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl,FormGroup} from '@angular/forms';
 import { User } from './user';
-import {Apiservice} from '../apiservice.service';
+import { Apiservice } from '../apiservice.service';
 
 
 @Component({
@@ -10,82 +9,74 @@ import {Apiservice} from '../apiservice.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-
-  constructor(private apiService:Apiservice) { }
+  constructor(private apiService: Apiservice) { }
+  // tslint:disable-next-line: member-ordering
+  userModel = new User();
+  // tslint:disable-next-line: member-ordering
+  buttonValue = 'Add';
+  // tslint:disable-next-line: member-ordering
+  searchText: string;
+  userList: User[] = [];
 
   ngOnInit() {
-    this.userList=this.apiService.getUserList();
+    this.userList = this.apiService.getUserList();
   }
 
-  userModel = new User();
-  buttonValue = 'Add';
-  searchText : string;
-  userList: User[]=[];
-
-  addUser()
-  {
-    
-   
-    const userId=this.apiService.addUser(this.userModel);
-    this.userModel.userId=userId;
-    
-    if(this.buttonValue==='Edit')
-    {
-      this.userList=this.userList.filter(obj=> obj.userId !== this.userModel.userId);
+  // adds userDetails
+  addUser() {
+    const userId = this.apiService.addUser(this.userModel);
+    this.userModel.userId = userId;
+    if (this.buttonValue === 'Edit') {
+      this.userList = this.userList.filter(obj => obj.userId !== this.userModel.userId);
 
     }
-   
-     this.userList.push(this.userModel);
-     this.buttonValue='Add';
-     this.userModel=new User();
+    this.userList.push(this.userModel);
+    this.buttonValue = 'Add';
+    this.userModel = new User();
   }
 
-  reset()
-  {
-   
-    this.buttonValue='Add';
+  // reset fields on user page
+  reset() {
+    this.buttonValue = 'Add';
   }
-  sortByFName()
-  {
-    
-    this.userList.sort((leftside,rightside) => {
-            if(leftside.firstName < rightside.firstName) return -1;
-            if(leftside.firstName > rightside.firstName) return 1;
-            return 0;
+
+  // sort by firstName
+  sortByFirstName() {
+    this.userList.sort((leftside, rightside) => {
+      if (leftside.firstName < rightside.firstName) { return -1; }
+      if (leftside.firstName > rightside.firstName) { return 1; }
+      return 0;
     });
   }
-  edit(user)
-  {
-    
-    this.buttonValue='Edit'
-    this.userModel=user;
+
+  // edit userDetails
+  edit(user) {
+
+    this.buttonValue = 'Edit';
+    this.userModel = user;
   }
 
-  delete(user)
-  {
-  
+  // delete userDetails
+  delete(user) {
     this.apiService.deleteUser(user);
-    this.userList=this.userList.filter(obj=> obj.userId !== user.userId);
+    this.userList = this.userList.filter(obj => obj.userId !== user.userId);
   }
 
-  sortByLName()
-  {
-   
-    this.userList.sort((leftside,rightside) => {
-            if(leftside.lastName < rightside.lastName) return -1;
-            if(leftside.lastName > rightside.lastName) return 1;
-            return 0;
+  // sort by lastName
+  sortByLastName() {
+    this.userList.sort((leftside, rightside) => {
+      if (leftside.lastName < rightside.lastName) { return -1; }
+      if (leftside.lastName > rightside.lastName) { return 1; }
+      return 0;
     });
   }
 
-  sortByEmployeeId()
-  {
-    
-    this.userList.sort((leftside,rightside) => {
-            if(leftside.employeeId < rightside.employeeId) return -1;
-            if(leftside.employeeId > rightside.employeeId) return 1;
-            return 0;
+  // sort by employeeId
+  sortByEmployeeId() {
+    this.userList.sort((leftside, rightside) => {
+      if (leftside.employeeId < rightside.employeeId) { return -1; }
+      if (leftside.employeeId > rightside.employeeId) { return 1; }
+      return 0;
     });
   }
-
 }

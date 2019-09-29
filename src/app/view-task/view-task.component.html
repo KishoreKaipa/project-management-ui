@@ -1,44 +1,46 @@
 <div class="container">
-    <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()" >
+    <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()">
         <div class="row">
-        <label class="labelspace" for="projectName"> Project Name</label>
-        <input type="text" class="form-control col-sm-2" #name="ngModel" disabled="true" [(ngModel)]="taskModel.projectDescription" name="projectName" required/>&nbsp;
-        <button type="submit"class="col-sm-2 btn btn-primary" (click)="openProject()">Search</button>&nbsp;&nbsp;
-        <label class="labelspace" > Sort </label>&nbsp;&nbsp;
-                <button type="button"class=" btn btn-primary" (click)="sortByStartDate()">Start Date</button> &nbsp;
-                <button type="button"class=" btn btn-primary" (click)="sortByEndDate()">End Date</button>&nbsp;
-                <button type="button"class=" btn btn-primary" (click)="sortByPriority()">Priority</button>&nbsp;
-                <button type="button"class=" btn btn-primary" (click)="sortByCompleted()">Completed</button>&nbsp;
+            <label class="labelspace" for="projectName"> Project Name</label>
+            <input type="text" class="form-control col-sm-2" #name="ngModel" disabled="true"
+                [(ngModel)]="taskModel.projectDescription" name="projectName" required />&nbsp;
+            <button type="submit" class="col-sm-2 btn btn-primary" (click)="openProject()">Search</button>&nbsp;&nbsp;
+            <label class="labelspace"> Sort By </label>&nbsp;&nbsp;
+            <button type="button" class=" btn btn-primary" (click)="sortByStartDate()">Start Date</button> &nbsp;
+            <button type="button" class=" btn btn-primary" (click)="sortByEndDate()">End Date</button>&nbsp;
+            <button type="button" class=" btn btn-primary" (click)="sortByPriority()">Priority</button>&nbsp;
+            <button type="button" class=" btn btn-primary" (click)="sortByCompleted()">Completed</button>&nbsp;
         </div>
-        </form>
+    </form>
 
-        <div class="container" *ngIf="taskList.length > 0">
-            <h2 class="justify-content-center"> Task List </h2>
-           
-            <table class="table table-stripped">
-                <thead>
-                    <tr>
-                        <th>Task </th>
-                        <th>Parent task </th>
-                        <th>Priority </th>
-                        <th>Start Date </th>
-                        <th>End Date </th>
-                        <th> </th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let task of taskList">
-                        <td>{{task.taskDescription}} </td>
-                        <td>{{task.parentTaskDescription}} </td>
-                        <td>{{task.priority}}</td>
-                        <td>{{task.startDate}}</td>
-                        <td>{{task.endDate}}</td>
-                        <td><button type="submit" class="btn btn-primary" [disabled]="checkDisabled(task)" (click)="editTask(task)" >Edit </button></td>
-                        <td><button type="submit" class="btn btn-primary" [disabled]="checkDisabled(task)" (click)="deleteTask(task)" >End Task </button></td>
-                    </tr>
-        
-                </tbody>
-            </table>
-        </div>
-        
+    <div class="container" *ngIf="taskList.length > 0">
+        <h2 class="justify-content-center"> Task List </h2>
+
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Task </th>
+                    <th>Parent task </th>
+                    <th>Priority </th>
+                    <th>Start Date </th>
+                    <th>End Date </th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of taskList">
+                    <td>{{task.taskDescription}} </td>
+                    <td>{{task.parentTaskDescription}} </td>
+                    <td>{{task.priority}}</td>
+                    <td>{{task.startDate}}</td>
+                    <td>{{task.endDate}}</td>
+                    <td><button type="submit" class="btn btn-primary" [disabled]="checkDisabled(task)"
+                            (click)="editTask(task)">Edit </button></td>
+                    <td><button type="submit" class="btn btn-primary" [disabled]="checkDisabled(task)"
+                            (click)="deleteTask(task)">End Task </button></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>

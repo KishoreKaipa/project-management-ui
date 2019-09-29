@@ -1,60 +1,67 @@
-
-
 <div class="container">
-    <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()" >
+    <form class="form-group" name="taskform" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && addTask()">
         <div class="row">
-        <label class="labelspace" for="projectName"> Project Name</label>
-        <input type="text" class="form-control col-md-2" disabled="true" #projectname="ngModel" [(ngModel)]="taskModel.projectDescription" name="projectName" required/>&nbsp;
-        
-        <button type="button"class="col-sm-1 btn btn-primary" (click)="openProject()">Search</button>
-        
+            <label class="labelspace" for="projectName"> Project Name</label>
+            <input type="text" class="form-control col-md-2" disabled="true" #projectname="ngModel"
+                [(ngModel)]="taskModel.projectDescription" name="projectName" required />&nbsp;
+            <button type="button"class="col-sm-1 btn btn-primary" (click)="openProject()">Search</button>
         </div>
         <br>
-       
+
         <div class="row">
             <label class="labelspace" for="taskName"> Task Name</label>
-            &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" #taskname="ngModel" [(ngModel)]="taskModel.taskDescription" name="taskName" required/>
-            <span class="help-bpx" *ngIf="taskname.errors?.required && taskForm.submitted">Please enter task Name </span>
-            </div>
-            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" #taskname="ngModel"
+                [(ngModel)]="taskModel.taskDescription" name="taskName" required />
+            <span class="help-bpx" *ngIf="taskname?.errors?.required && taskForm.submitted">Please enter task Name
+            </span>
+        </div>
+        <br>
         <div class="row">
-        <input type="checkbox" [(ngModel)]="taskModel.IsParentTask" (change)="dateset()" name="parentTask"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="parentTask"> Parent Task</label>
-      </div>
-    <div class="row">
-        <label class="labelspace" for="priority"> Priority</label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" class="form-control col-md-3"  min="0" max="30" [disabled]="isDisabled" name="priority" [(ngModel)]="taskModel.priority"/>
-        
-        
- </div>
+            <input type="checkbox" [(ngModel)]="taskModel.IsParentTask" (change)="dateset()" name="parentTask" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="parentTask"> Parent Task</label>
+        </div>
         <div class="row">
-        <label class="labelspace" for="parent Task"> Parent Task</label>
-        &nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" disabled="true" #eId="ngModel" name="parentTaskName" [(ngModel)]="taskModel.parentTaskDescription"/>&nbsp;
-       
-        <button type="button"class="col-sm-1 btn btn-primary" [disabled]="isDisabled" (click)="openTask()">Search</button>
-        
- </div>
- <br>
- <div class="row">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="labelspace" for="start"> Start Date</label>
-    <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel" name="startDate" (change)="dateChange()" [(ngModel)]="taskModel.startDate"/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<label class="labelspace" for="end"> End Date</label>
-    <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate" (change)="dateChange()" [(ngModel)]="taskModel.endDate"/>
-    <span class="help-bpx" *ngIf="isErrormsg">End Date should be greater than start Date </span>
- </div>
-<br>
-<div class="row">
-<label class="labelspace" for="user"> User Name </label>
-&nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" disabled="true"  name="userNameText" [(ngModel)]="taskModel.userName"/>&nbsp;
+            <label class="labelspace" for="priority"> Priority</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" class="form-control col-md-3"
+                min="0" max="30" [disabled]="isDisabled" name="priority" [(ngModel)]="taskModel.priority" />
 
-<button type="button"class="col-sm-1 btn btn-primary" [disabled]="isDisabled" (click)="openUser()">Search</button>
 
-</div>
-<br>
+        </div>
         <div class="row">
-    <input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
-   
-        <button type="reset"class="col-md-2 btn btn-primary" >Reset</button>
-    </div></form>
+            <label class="labelspace" for="parent Task"> Parent Task</label>
+            &nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" disabled="true" #eId="ngModel"
+                name="parentTaskName" [(ngModel)]="taskModel.parentTaskDescription" />&nbsp;
+
+            <button type="button"class="col-sm-1 btn btn-primary" [disabled]="isDisabled"
+            (click)="openTask()">Search</button>
+
+        </div>
+        <br>
+        <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="labelspace" for="start"> Start Date</label>
+            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #startDate="ngModel"
+                name="startDate" (change)="dateChange()" [(ngModel)]="taskModel.startDate" />
+            &nbsp;&nbsp;&nbsp;&nbsp;<label class="labelspace" for="end"> End Date</label>
+            <input type="date" class="form-control col-md-2" [disabled]="isDisabled" #endDate="ngModel" name="endDate"
+                (change)="dateChange()" [(ngModel)]="taskModel.endDate" />
+            <span class="help-bpx" *ngIf="isErrormsg">End Date should be greater than start Date </span>
+        </div>
+        <br>
+        <div class="row">
+            <label class="labelspace" for="user"> User Name </label>
+            &nbsp;&nbsp;&nbsp;<input type="text" class="form-control col-md-2" disabled="true" name="userNameText"
+                [(ngModel)]="taskModel.userName" />&nbsp;
+
+            <button type="button" class="col-sm-1 btn btn-primary" [disabled]="isDisabled"
+                (click)="openUser()">Search</button>
+
+        </div>
+        <br>
+        <div class="row">
+            <input type="submit" class="col-md-2 btn btn-primary" [value]="buttonValue" /> &nbsp;
+
+            <button type="reset" class="col-md-2 btn btn-primary">Reset</button>
+        </div>
+    </form>
 </div>
 
