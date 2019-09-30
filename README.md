@@ -15,9 +15,11 @@ Steps to Run the Code
 3) Application is configured to run in 4200 port, hence URL for Users will be http://localhost:4200/
 4) Karma Test reports will be available as part of npm install build
 
--------------------
-Software Required
------------------
-1) Latest Node Installation (used Node V12 for this application)
-2) NPM Latest Version
-3) Angular IDE / Eclipse CodeMix Plugin / VS Code
+------------------------
+Software Used / Required
+------------------------
+1) Angular 8
+2) Boootstrap CSS
+3) Latest Node Installation (used Node V12 for this application)
+4) NPM Latest Version
+5) Angular IDE / Eclipse CodeMix Plugin / VS Code
